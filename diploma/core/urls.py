@@ -15,8 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+# добавлено для работы с медиафайлами
+from django.conf import settings
+from django.conf.urls.static import static
+
 from django.urls import path
+from smart_house import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('devices/', views.devices, name='books'),
+    path('get_data/', views.to_get_data),
+    path('test', views.test)
 ]
+
+# для работы с медиафайлами локально
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )

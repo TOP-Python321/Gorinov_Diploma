@@ -48,6 +48,11 @@ class Device(models.Model):
         help_text="Введите ieee адрес датчика",
         verbose_name="ieee адрес датчика"
     )
+    json_data = models.JSONField(
+        db_column='json_data',
+        null=True,
+        blank=True
+    )
     groups_id = models.ForeignKey(
         to='Group',
         db_column='groups_id',

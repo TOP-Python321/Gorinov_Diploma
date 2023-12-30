@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 from .models import Group, DeviceType, Device, Scenario
 
 admin.site.register(Group)
