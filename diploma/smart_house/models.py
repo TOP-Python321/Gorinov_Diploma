@@ -122,7 +122,7 @@ class Scenario(models.Model):
         null=True,
         blank=True
     )
-    # ПОМЕНЯТЬ НА СВЯЗЬ ОДИН КО МНОГИМ?
+   
     water_leak_sensor_sensor= models.OneToOneField(
         to='Device',
         db_column='water_leak_sensor_id',

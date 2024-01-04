@@ -129,7 +129,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MQTT_HOSTS = '192.168.1.6'
-MQTT_PORT = '1883'
+MQTT_PORT = 1883
 REDIS_HOSTS = '127.0.0.1'
 REDIS_PORT = '6379'
 CELERY_BROKER_URL = 'redis://' + REDIS_HOSTS + ':' + REDIS_PORT + '/0'

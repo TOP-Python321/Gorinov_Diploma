@@ -19,8 +19,12 @@
             <td><img src="{{ device.devices_type.image.url }}" alt="connect" style="max-height:100px"></td>
             <td><a href="{{ device.id }}">{{ device.name }}</a></td>
             <td>{{ device.address }}</td>            
-            <td>{{device.json_data.linkquality}}</td>
-               
+            <td>
+              {% for key, value in devices_param.items %}
+                {% if key == device.address %}
+                  {{value.linkquality}}
+                {% endif %}
+              {% endfor %}           
           </tr>
         {% endfor %}
       </tbody>

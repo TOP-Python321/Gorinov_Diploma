@@ -24,9 +24,12 @@ from smart_house import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('devices/', views.devices, name='books'),
+    # path('devices/', views.devices,),
+    path('devices/', views.DeviceListView.as_view(), name='devices'),
+    path('devices/<int:pk>/', views.DeviceDetailView.as_view(), name='device'),
+    path('devices/bat', views.socket_220,name='socket_220'),
     path('get_data/', views.to_get_data),
-    path('test', views.test)
+    
 ]
 
 # для работы с медиафайлами локально
