@@ -5,7 +5,7 @@ import time
 
 from core.settings import MQTT_PORT, MQTT_HOSTS
 from core.celery import app 
-from .models import Device, DeviceType
+from .models import Device, DeviceType, Scenario
 
 @app.task
 def mqtt_test():
@@ -15,15 +15,17 @@ def mqtt_test():
         try:
             device = Device.objects.get(address=''.join(message.topic.split('/')[-1]))
         except ObjectDoesNotExist:
-            print('новое устройство')
+            print(f'DEBUG <новое устройство>')
             device = Device(name='новое устройство', address=''.join(message.topic.split('/')[-1]))
             devices_type = DeviceType.objects.get(name="Новое устройство")
             device.devices_type_id = devices_type.id
             device.save()
         else:
             device.json_data = message.payload.decode("utf-8")
-            device.save()        
-            print(device.name)
+            device.save()
+            print(f'DEBUG {device.devices_type = }')
+            if device.devices_type.name == "Датчик протечки воды":
+                print(f'DEBUG {device.scenarios_as_water_leak_sensor.id = }')
 
     client = mqtt.Client()    
     client.on_message=on_message #attach function to callback

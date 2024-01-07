@@ -63,7 +63,7 @@
         </p>
         <form action= '{% url 'socket_220' %}' method="POST">
           {% csrf_token %}
-          <input type="submit" value={% if device.json_data.state == "OFF" %} "Вкл." {% endif %} "Выкл."/>
+          <input class="input_but" type="submit" value={% if device.json_data.state == "OFF" %} "Вкл." {% endif %} "Выкл."/>
           <input type="hidden" name="id" value="{{device.id}}" />
           <input type="hidden" name="state" value="{{device.json_data.state}}" />
         

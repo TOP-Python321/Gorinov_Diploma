@@ -1,0 +1,59 @@
+.forms{
+    width: 800px;
+    margin: 20px auto ;
+    /* background-color: rgb(126, 93, 187); */
+    color: white;
+    border-radius: 10px;
+    
+    
+}
+
+.form_water_pump{   
+    text-align: right;
+    /* background-color: rgb(126, 93, 187); */
+    padding: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+form div{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+label{
+    color: white;    
+}
+
+input{
+    background-color: rgb(196, 183, 183);
+    border-radius: 10px;
+    padding: 5px;
+    border: rgb(196, 183, 183);
+    width: 60%;
+}
+
+select{
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(112, 93, 93);
+    cursor: pointer;
+    width: 60%;
+}
+.input_sub{
+    text-align: center;
+    width: 100px;
+    background-color: #ffc107;
+    color: #6f42c1;;
+}
+
+input:focus{
+    background-color: white;
+    border:white;
+}
+.input_but{
+    width: 60px;
+}

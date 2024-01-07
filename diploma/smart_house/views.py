@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
-
+import json
 import time
+
 
 from .models import Device
 from .tasks import mqtt_test
@@ -13,10 +14,9 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseNotFound
 )
-
 from .mqtt import mqtt_publish
-from .models import Device, DeviceType
-import json
+from .models import Device, DeviceType, Scenario
+from .import forms
 
 # Create your views here.
 def to_get_data(request):
@@ -74,3 +74,24 @@ def socket_220(request):
         msg = 'ON' if request.POST.get('state') == 'OFF' else 'OFF'         
         mqtt_publish(device.address, msg)
     return redirect('device', device.id)
+    
+def wate_pump_form(request):
+
+    if request.method == "POST":
+        # создание экземпляра формы
+        form = forms.WaterPumpForm(request.POST)        
+        if form.is_valid():
+            scenario = Scenario(
+                name=form.cleaned_data["name"], 
+                water_leak_sensor=form.cleaned_data["water_leak_sensor"],
+                socket_220=form.cleaned_data["socket_220"],
+                scenario_type=form.cleaned_data["scenario_type"],
+            )           
+            scenario.save()           
+    elif request.method == 'GET':
+        form = forms.WaterPumpForm()    
+    context = {
+        "form": form,        
+    }
+    print(context)
+    return render(request, 'smart_house/wate_pump_form.html', context)
