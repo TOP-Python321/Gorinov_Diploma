@@ -14,7 +14,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseNotFound
 )
-from .mqtt import mqtt_publish
+from .data import mqtt_publish
 from .models import Device, DeviceType, Scenario
 from .import forms
 
@@ -71,7 +71,7 @@ def socket_220(request):
     """
     if request.method == 'POST':
         device = Device.objects.get(id=request.POST.get('id'))
-        msg = 'ON' if request.POST.get('state') == 'OFF' else 'OFF'         
+        msg = {'state': "ON"} if request.POST.get('state') == 'OFF' else {'state': "OFF"}         
         mqtt_publish(device.address, msg)
     return redirect('device', device.id)
     
@@ -92,6 +92,5 @@ def wate_pump_form(request):
         form = forms.WaterPumpForm()    
     context = {
         "form": form,        
-    }
-    print(context)
+    }   
     return render(request, 'smart_house/wate_pump_form.html', context)

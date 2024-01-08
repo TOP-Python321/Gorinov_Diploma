@@ -6,6 +6,7 @@ import time
 from core.settings import MQTT_PORT, MQTT_HOSTS
 from core.celery import app 
 from .models import Device, DeviceType, Scenario
+from .data import СhoiceStrategy
 
 @app.task
 def mqtt_test():
@@ -24,8 +25,8 @@ def mqtt_test():
             device.json_data = message.payload.decode("utf-8")
             device.save()
             print(f'DEBUG {device.devices_type = }')
-            if device.devices_type.name == "Датчик протечки воды":
-                print(f'DEBUG {device.scenarios_as_water_leak_sensor.id = }')
+            # выбор стратегии
+            СhoiceStrategy.to_strategy(device)            
 
     client = mqtt.Client()    
     client.on_message=on_message #attach function to callback

@@ -14,7 +14,7 @@ class Group(models.Model):
     def __str__(self):
         return self.name
     
-class DeviceType(models.Model):
+class DeviceType(models.Model):   
     class Meta:
         db_table = 'devices_type'        
                
@@ -74,7 +74,7 @@ class Device(models.Model):
     def __str__(self):
         return self.name
 
-class ScenarioType(models.Model):
+class ScenarioType(models.Model):    
     class Meta:
         db_table = 'scenario_type'        
                
