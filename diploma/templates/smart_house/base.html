@@ -17,25 +17,28 @@
     </div>
   </div>
   <div class="container-fluid">
-    <div class="row bg-warning text-center">
-      <h6>
-        <!-- <a href="">Датчики<a> -->
-        <!-- <a href="">Группы<a> -->
-        <!-- <a href="">Контакты<a> -->
-      </h6>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row text-center text-primary fs-1 fw-bold">
-      <div>{% block header %}
-           {% endblock header %}
-      </div>
-    </div>
-    <div class="row text-start text-body">      
-      <div class="col">
-        <div class="row text-center">
-        {% block content %}
-        {% endblock content %}
+    <div class="row text-start text-body">
+      <div class="col-3 bg-warning">
+        <nav class=" flex-column">
+          <li>
+            <a href="{% url 'devices' %}">Устройства</a>
+          </li>
+          <li>
+            <a href="{% url 'get_data' %}">Запуск опроса датчиков</a>
+          </li>
+          <li>
+            <a href="{% url 'scenarios' %}">Сценарии</a>
+          </li>
+        </nav>        
+      </div>    
+      <div class="col-9">      
+        <div class="row text-start text-body">      
+          <div class="col">
+            <div class="row text-center">
+            {% block content %}
+            {% endblock content %}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -64,6 +64,13 @@ class DeviceDetailView(DetailView):
         context['device_type'] = DeviceType.objects.get(id=self.object.devices_type_id)        
         return context
         
+class ScenarioListView(ListView):
+    model = Scenario
+    # путь к шаблону
+    template_name = 'smart_house/scenarios.html'
+    # переопределение имени 'object_list'
+    context_object_name = 'scenarios'    
+        
 def socket_220(request):
     """
         Принимает через метод POST состояние устройства. Передает команду устройству 
