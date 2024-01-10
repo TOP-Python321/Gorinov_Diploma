@@ -69,7 +69,12 @@ class ScenarioListView(ListView):
     # путь к шаблону
     template_name = 'smart_house/scenarios.html'
     # переопределение имени 'object_list'
-    context_object_name = 'scenarios'    
+    context_object_name = 'scenarios'
+
+class ScenarioDetailView(DetailView):
+    model = Scenario
+    template_name = 'smart_house/scenario.html'
+    context_object_name = 'scenario'    
         
 def socket_220(request):
     """
@@ -94,7 +99,9 @@ def wate_pump_form(request):
                 socket_220=form.cleaned_data["socket_220"],
                 scenario_type=form.cleaned_data["scenario_type"],
             )           
-            scenario.save()           
+            scenario.save()
+            print(dir(ScenarioListView))
+            return redirect("scenarios")
     elif request.method == 'GET':
         form = forms.WaterPumpForm()    
     context = {

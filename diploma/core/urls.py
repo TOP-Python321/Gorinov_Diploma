@@ -28,8 +28,10 @@ urlpatterns = [
     path('devices/', views.DeviceListView.as_view(), name='devices'),
     path('devices/<int:pk>/', views.DeviceDetailView.as_view(), name='device'),
     path('scenarios/', views.ScenarioListView.as_view(), name='scenarios'),
+    path('scenarios/<int:pk>/', views.ScenarioDetailView.as_view(), name='scenario'),
     path('devices/bat', views.socket_220,name='socket_220'),
     path('wate_pump_form/', views.wate_pump_form, name='wate_pump_form'),
+    path('wate_pump_form/<int:id>/', views.wate_pump_form, name='wate_pump_form'),
     path('get_data/', views.to_get_data, name='get_data'),
     
 ]

@@ -3,12 +3,9 @@
   <div class="row text-center text-dark 1h-2">
       <h4>Список сценариев в БД</h4>
     </div>
-    {% if scenarios %}
-      <div>
-        <p> Вид сценария </p>
-      </div>
+    {% if scenarios %}     
         {% for scenario in scenarios %}
-          <div>
+          <div class="text-start">
             <a href="{{ scenario.id }}">{{ scenario.name }}</a>            
           </div>
         {% endfor %}
