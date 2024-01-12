@@ -2,7 +2,12 @@
 {% block content %}
   <div class="row text-center text-dark 1h-2">
       <h4>Список сценариев в БД</h4>
-    </div>
+  </div>
+  <div class="row text-start ">
+      <a href="{% url 'wate_pump_form' %}">Добавить сценарий</a>
+      <hr>
+  </div>
+  
     {% if scenarios %}     
         {% for scenario in scenarios %}
           <div class="text-start">

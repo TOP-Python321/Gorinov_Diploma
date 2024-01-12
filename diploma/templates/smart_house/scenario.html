@@ -27,7 +27,8 @@
     </div>
     <div class="row text-center">
       <div class="col-4">
-        <a href="/wate_pump_form/{{scenario.id}}">Редактировать</a>
+        <a href="{% url 'water_pump_scenarios_edit' scenario.pk %}">Редактировать</a>
+        <a href="{% url 'water_pump_scenarios_delete' scenario.pk %}">Удалить</a>
       </div>      
     </div>
   {% endif %}

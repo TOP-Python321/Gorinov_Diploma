@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Group(models.Model):
@@ -174,6 +175,11 @@ class Scenario(models.Model):
         help_text="Укажите вид сценаярия",
         verbose_name="Вид сценария",
         null=True,        
-    )    
+    )
+    
+    def get_absolute_url(self):
+        "Ссылка на страницу экземпляра"
+        return reverse("scenario", kwargs={"pk": self.pk})
+        
     def __str__(self):
         return self.name

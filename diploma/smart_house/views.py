@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 import json
 import time
 
@@ -16,6 +18,7 @@ from django.http import (
 )
 from .data import mqtt_publish
 from .models import Device, DeviceType, Scenario
+from .forms import WaterPumpForm
 from .import forms
 
 # Create your views here.
@@ -23,7 +26,10 @@ def to_get_data(request):
     """Запуск задачи приема сообщений с устройств."""
     mqtt_test.delay()    
     return HttpResponse("<h2>Запуск цикла опроса датчиков</h2>")
-   
+
+def index(request):
+    return redirect('devices')
+  
 # def devices(request):
    
     # devices = Device.objects.all()    
@@ -74,7 +80,28 @@ class ScenarioListView(ListView):
 class ScenarioDetailView(DetailView):
     model = Scenario
     template_name = 'smart_house/scenario.html'
-    context_object_name = 'scenario'    
+    context_object_name = 'scenario'
+
+class WaterPumpScenarioCreateView(CreateView):
+    model = Scenario
+    # какой класс форм использовать
+    form_class = WaterPumpForm
+    template_name = 'smart_house/water_pump_scenarios_new.html'
+    
+class WaterPumpScenarioUpdateView(UpdateView):
+    model = Scenario
+    # какой класс форм использовать
+    form_class = WaterPumpForm
+    template_name = 'smart_house/water_pump_scenarios_new.html'
+    
+class WaterPumpScenarioDeleteView(DeleteView):
+    model = Scenario
+    # какой класс форм использовать
+    form_class = WaterPumpForm    
+   
+    def get(self, request, *args, **kwargs):
+        self.get_object().delete()       
+        return redirect('scenarios')    
         
 def socket_220(request):
     """
@@ -99,8 +126,7 @@ def wate_pump_form(request):
                 socket_220=form.cleaned_data["socket_220"],
                 scenario_type=form.cleaned_data["scenario_type"],
             )           
-            scenario.save()
-            print(dir(ScenarioListView))
+            scenario.save()           
             return redirect("scenarios")
     elif request.method == 'GET':
         form = forms.WaterPumpForm()    
