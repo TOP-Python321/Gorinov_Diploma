@@ -31,12 +31,12 @@ urlpatterns = [
     path('scenarios/', views.ScenarioListView.as_view(), name='scenarios'),
     path('scenarios/<int:pk>/', views.ScenarioDetailView.as_view(), name='scenario'),
     # путь на форму создания сценария <<насосная станция>>
-    path('scenarios/water_pump/new/', views.WaterPumpScenarioCreateView.as_view(), name='water_pump_scenarios_new'),
+    path('scenarios/water_pump/new/', views.WaterPumpScenarioFormView.as_view(), name='water_pump_scenarios_new'),
     # путь на форму редактирования сценария <<насосная станция>>
     path('scenarios/water_pump/edit/<int:pk>', views.WaterPumpScenarioUpdateView.as_view(), name='water_pump_scenarios_edit'),
     path('scenarios/water_pump/delete/<int:pk>', views.WaterPumpScenarioDeleteView.as_view(), name='water_pump_scenarios_delete'),
     path('devices/bat', views.socket_220,name='socket_220'),
-    path('wate_pump_form/', views.wate_pump_form, name='wate_pump_form'),    
+    # path('wate_pump_form/', views.wate_pump_form, name='wate_pump_form'),    
     path('get_data/', views.to_get_data, name='get_data'),
     
 ]

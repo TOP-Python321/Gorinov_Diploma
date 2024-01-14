@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 import json
 import time
 
@@ -29,22 +29,6 @@ def to_get_data(request):
 
 def index(request):
     return redirect('devices')
-  
-# def devices(request):
-   
-    # devices = Device.objects.all()    
-    # # linkquality = {json.loads(device.json_data) for device in devices}
-    # # print(linkquality)
-    # devices_param = {}
-    # for device in devices:
-        # device_dict = json.loads(device.json_data)
-        # devices_param |= {device.address: device_dict}
-    # context = {
-       # 'devices': devices,
-       # 'devices_param': devices_param
-    # }
-    
-    # return render(request, 'smart_house/devices.html', context)
     
 class DeviceListView(ListView):
     model = Device
@@ -82,11 +66,22 @@ class ScenarioDetailView(DetailView):
     template_name = 'smart_house/scenario.html'
     context_object_name = 'scenario'
 
-class WaterPumpScenarioCreateView(CreateView):
-    model = Scenario
+class WaterPumpScenarioFormView(FormView):   
     # какой класс форм использовать
     form_class = WaterPumpForm
     template_name = 'smart_house/water_pump_scenarios_new.html'
+    # success_url = ''
+    def form_valid(self, form):       
+            scenario = Scenario(
+                name=form.cleaned_data["name"],                
+                scenario_type=form.cleaned_data["scenario_type"],
+            )
+            scenario.save()
+            for device in form.cleaned_data["water_leak_sensor"]:
+                scenario.devices_id.add(device)
+            scenario.devices_id.add(form.cleaned_data["socket_220"])
+            return redirect("scenarios")
+       
     
 class WaterPumpScenarioUpdateView(UpdateView):
     model = Scenario
