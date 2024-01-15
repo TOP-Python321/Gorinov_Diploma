@@ -9,22 +9,24 @@
         <p>{{ scenario.name }}</p>
       </div>
     </div>
+    {#{scenario.devices_id.get.name="розетка"}#}
+    {% for device in scenario.devices_id.all %}
     <div class="row text-center">
       <div class="col-4 text-start">
-        <p>Розетка</p>
+    {% if device.devices_type.name == "socket_220" %}
+      <p>Розетка</p>
+    {% else %}
+      <p>Датчик протечки</p>
+    {% endif %}
       </div>
       <div class="col-6 text-start">
-        <p>{{ scenario.socket_220 }}</p>
+        <p>
+            {{device.name}}
+        </p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
-        <p>Датчик протечки</p>
-      </div>
-      <div class="col-6 text-start">
-        <p>{{ scenario.water_leak_sensor }}</p>
-      </div>
-    </div>
+    {% endfor %}
+    <div class="r</div>
     <div class="row text-center">
       <div class="col-4">
         <a href="{% url 'water_pump_scenarios_edit' scenario.pk %}">Редактировать</a>

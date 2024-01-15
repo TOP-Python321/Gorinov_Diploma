@@ -88,6 +88,15 @@ class WaterPumpScenarioUpdateView(UpdateView):
     # какой класс форм использовать
     form_class = WaterPumpForm
     template_name = 'smart_house/water_pump_scenarios_new.html'
+    def form_valid(self, form):
+            print(self.object)
+            self.object.name = form.cleaned_data["name"]
+            self.object.scenario_type=form.cleaned_data["scenario_type"]
+            self.object.devices_id.clear()            
+            for device in form.cleaned_data["water_leak_sensor"]:
+                self.object.devices_id.add(device)
+            self.object.devices_id.add(form.cleaned_data["socket_220"])
+            return redirect("scenarios")
     
 class WaterPumpScenarioDeleteView(DeleteView):
     model = Scenario
