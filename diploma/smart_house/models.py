@@ -74,6 +74,7 @@ class Device(models.Model):
     )
     def __str__(self):
         return self.name
+        
 
 class ScenarioType(models.Model):    
     class Meta:
@@ -84,10 +85,11 @@ class ScenarioType(models.Model):
         max_length=50,
         help_text="Введите вид сценария",
         verbose_name="Название вида сценария"
-    )  
+    ) 
     
     def __str__(self):
         return self.name
+        
 
 class Scenario(models.Model):
     class Meta:

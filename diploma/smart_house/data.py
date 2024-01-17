@@ -16,19 +16,28 @@ def mqtt_publish(address: str, msg: dict) -> None:
     obj.publish(f'zigbee2mqtt/{address}/set', json.dumps(msg))
 
 class Strategy(ABC):
-    """Абстрактный класс стратегий действий на основании сценария."""
+    """Абстрактный класс стратегий действий на основании сценария."""   
+    
     @abstractmethod
-    def action(device):
+    def action(scenario):
         ...
         
 class PumpingStationStrategy(Strategy):
     """Описывает стратегию для сценария <<Насосная станция>>"""
     def action(scenario: models.Scenario):
-        if (json.loads(scenario.water_leak_sensor.json_data)["water_leak"] 
-            and json.loads(scenario.socket_220.json_data)["state"] == "ON"
+        print(f'DEBUG передана стратегия {scenario = }')
+        water_type = models.DeviceType.objects.get(name="Датчик протечки воды")
+        socket_type = models.DeviceType.objects.get(name="socket_220")
+        water_leak = scenario.devices_id.filter(devices_type=water_type)
+        socket_220 = scenario.devices_id.get(devices_type=socket_type)
+        
+        if (
+            any(json.loads(dev.json_data)["water_leak"] for dev in water_leak)
+            and json.loads(socket_220.json_data)["state"] == "ON"
         ):
             print("DEBUG - выключить розетку")            
-            mqtt_publish(scenario.socket_220.address, {'state': "OFF"})
+            mqtt_publish(socket_220.address, {'state': "OFF"})            
+       
             
 class СhoiceStrategy:
     """Описывает выбор стратегии на основании полученного объекта <<device>>."""

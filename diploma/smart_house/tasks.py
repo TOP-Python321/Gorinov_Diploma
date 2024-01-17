@@ -6,7 +6,7 @@ import time
 from core.settings import MQTT_PORT, MQTT_HOSTS
 from core.celery import app 
 from .models import Device, DeviceType, Scenario
-from .data import СhoiceStrategy
+from .import data
 
 @app.task
 def mqtt_test():
@@ -26,7 +26,13 @@ def mqtt_test():
             device.save()
             print(f'DEBUG {device.devices_type = }')
             # выбор стратегии
-            СhoiceStrategy.to_strategy(device)            
+            try:
+                scena = Scenario.objects.get(devices_id = device)                
+                print(f'DEBUG имя типа стратегии -> {scena.scenario_type.name = }')
+                if scena.scenario_type.name == "Насосная станция":
+                    data.PumpingStationStrategy.action(scena)
+            except Exception:
+                pass            
 
     client = mqtt.Client()    
     client.on_message=on_message #attach function to callback
