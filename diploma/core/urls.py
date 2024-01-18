@@ -28,6 +28,10 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('devices/', views.DeviceListView.as_view(), name='devices'),
     path('devices/<int:pk>/', views.DeviceDetailView.as_view(), name='device'),
+    # путь редактирования усторйства
+    path('devices/edit/<int:pk>/', views.DeviceUpdateView.as_view(), name='device_edit'),
+    # удаление устройства
+    path('devices/del/<int:pk>/', views.DeviceDeleteView.as_view(), name='device_del'),
     path('scenarios/', views.ScenarioListView.as_view(), name='scenarios'),
     path('scenarios/<int:pk>/', views.ScenarioDetailView.as_view(), name='scenario'),
     # путь на форму создания сценария <<насосная станция>>

@@ -34,6 +34,13 @@ class WaterPumpForm(forms.ModelForm):
         model = Scenario
         fields = ["name"]
         
+class DeviceForm(forms.ModelForm):
+    """Описывает форму устройства"""
+    
+    class Meta:
+        model = Device
+        fields = ["name", "groups_id", "devices_type"]
+        
 
 
         
