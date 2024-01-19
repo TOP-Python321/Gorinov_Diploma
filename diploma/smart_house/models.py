@@ -59,7 +59,7 @@ class Device(models.Model):
         db_column='groups_id',
         on_delete=models.CASCADE,
         help_text="Укажите в какую группу входит устройство",
-        verbose_name="В какую группу входит устройство",
+        verbose_name="Входит в группу",
         null=True,
         blank=True
     )
@@ -74,6 +74,10 @@ class Device(models.Model):
     )
     def __str__(self):
         return self.name
+        
+    def get_absolute_url(self):
+        "Ссылка на страницу экземпляра"
+        return reverse("device", kwargs={"pk": self.pk})
         
 
 class ScenarioType(models.Model):    

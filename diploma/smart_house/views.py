@@ -18,7 +18,7 @@ from django.http import (
 )
 from .data import mqtt_publish
 from .models import Device, DeviceType, Scenario
-from .forms import WaterPumpForm
+from .forms import WaterPumpForm, DeviceForm
 from .import forms
 
 # Create your views here.
@@ -51,8 +51,30 @@ class DeviceDetailView(DetailView):
     def get_context_data(self, **kwargs):       
         context = super().get_context_data(**kwargs)       
         self.object.json_data = json.loads(self.object.json_data)
-        context['device_type'] = DeviceType.objects.get(id=self.object.devices_type_id)        
+        context['device_type'] = DeviceType.objects.get(id=self.object.devices_type_id)       
         return context
+        
+        
+class DeviceUpdateView(UpdateView):
+    """Описывает класс редактирования устройства"""
+    model = Device
+    # какой класс форм использовать
+    form_class = DeviceForm
+    template_name = 'smart_house/device_edit.html'
+    
+    
+class DeviceDeleteView(DeleteView):
+    """Описывает класс для удаления устройства"""
+    model = Device
+    # какой класс форм использовать
+    form_class = DeviceForm
+    template_name = 'smart_house/device_del.html'
+
+    def get(self, request, *args, **kwargs):
+        # добавить команду удаления устройства из zigbee2mqtt
+        self.get_object().delete()      
+        return redirect('devices')   
+
         
 class ScenarioListView(ListView):
     model = Scenario
