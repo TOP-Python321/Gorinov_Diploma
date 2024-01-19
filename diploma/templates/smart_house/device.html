@@ -140,6 +140,10 @@
         <p> {{ device.json_data.battery }} %</p>
       </div>
     </div>
+    <div class="row text-center">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
+    </div>
     {% endif %}
     <!-- ------------------------------------------------------------------------------------------------ -->
     {% if device_type.name == 'Датчик протечки воды' %}
@@ -196,6 +200,10 @@
         {% endif %}        
       </div>
     </div>
+    <div class="row text-center">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
+    </div>
     {% endif %}
     <!-- ------------------------------------------------------------------------------------------ -->
      {% if device_type.name == 'Датчик дыма' %}
@@ -245,6 +253,17 @@
           <p>Обнаружено</p>
         {% endif %}        
       </div>
+    </div>
+    <div class="row text-center">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
+    </div>
+    {% endif %}
+    <!-- -------------------------------------------------------------------------------------------------------------- -->
+    {% if device_type.name == 'Новое устройство' %}    
+    <div class="row text-center">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
     </div>
     {% endif %}
   </div>

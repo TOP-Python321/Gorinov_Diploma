@@ -16,7 +16,7 @@ from django.http import (
     HttpResponseForbidden,
     HttpResponseNotFound
 )
-from .data import mqtt_publish
+from .data import mqtt_publish, mqtt_all_publish
 from .models import Device, DeviceType, Scenario
 from .forms import WaterPumpForm, DeviceForm
 from .import forms
@@ -25,7 +25,14 @@ from .import forms
 def to_get_data(request):
     """Запуск задачи приема сообщений с устройств."""
     mqtt_test.delay()    
-    return HttpResponse("<h2>Запуск цикла опроса датчиков</h2>")
+    return redirect('devices')
+    
+    
+def connect_decvice(request):
+    """Отправляетна zigbee2mqtt сообщение c разрешеним на подключения новых устройств"""
+    mqtt_all_publish('zigbee2mqtt/bridge/request/permit_join', {"value": "true"})
+    return redirect('devices')
+    
 
 def index(request):
     return redirect('devices')
@@ -71,7 +78,8 @@ class DeviceDeleteView(DeleteView):
     template_name = 'smart_house/device_del.html'
 
     def get(self, request, *args, **kwargs):
-        # добавить команду удаления устройства из zigbee2mqtt
+        # удаления устройства из zigbee2mqtt        
+        mqtt_all_publish('zigbee2mqtt/bridge/request/device/remove', {'id': self.get_object().address})
         self.get_object().delete()      
         return redirect('devices')   
 

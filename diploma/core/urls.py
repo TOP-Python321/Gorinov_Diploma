@@ -26,6 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('devices/', views.devices,),
     path('', views.index, name='index'),
+    # добавление новых устройств
+    path('devices/connect_decvice', views.connect_decvice, name='connect_decvice'),
     path('devices/', views.DeviceListView.as_view(), name='devices'),
     path('devices/<int:pk>/', views.DeviceDetailView.as_view(), name='device'),
     # путь редактирования усторйства

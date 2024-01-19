@@ -14,22 +14,28 @@ def mqtt_publish(address: str, msg: dict) -> None:
     obj = client.Client()
     obj.connect(MQTT_HOSTS, MQTT_PORT)   
     obj.publish(f'zigbee2mqtt/{address}/set', json.dumps(msg))
+    
+def mqtt_all_publish(topic: str, msg: dict) -> None:
+    obj = client.Client()
+    obj.connect(MQTT_HOSTS, MQTT_PORT)   
+    obj.publish(topic, json.dumps(msg))
 
-class Strategy(ABC):
+class Strategy():
     """Абстрактный класс стратегий действий на основании сценария."""   
+    water_type = models.DeviceType.objects.get(name="Датчик протечки воды")
+    socket_type = models.DeviceType.objects.get(name="socket_220")
     
     @abstractmethod
     def action(scenario):
         ...
         
 class PumpingStationStrategy(Strategy):
-    """Описывает стратегию для сценария <<Насосная станция>>"""
-    def action(scenario: models.Scenario):
-        print(f'DEBUG передана стратегия {scenario = }')
-        water_type = models.DeviceType.objects.get(name="Датчик протечки воды")
-        socket_type = models.DeviceType.objects.get(name="socket_220")
-        water_leak = scenario.devices_id.filter(devices_type=water_type)
-        socket_220 = scenario.devices_id.get(devices_type=socket_type)
+    """Описывает стратегию для сценария <<Насосная станция>>"""    
+   
+    def action(self, scenario: models.Scenario):
+        print(f'DEBUG передана стратегия {scenario = }')       
+        water_leak = scenario.devices_id.filter(devices_type=self.water_type)
+        socket_220 = scenario.devices_id.get(devices_type=self.socket_type)
         
         if (
             any(json.loads(dev.json_data)["water_leak"] for dev in water_leak)

@@ -30,7 +30,9 @@ def mqtt_test():
                 scena = Scenario.objects.get(devices_id = device)                
                 print(f'DEBUG имя типа стратегии -> {scena.scenario_type.name = }')
                 if scena.scenario_type.name == "Насосная станция":
-                    data.PumpingStationStrategy.action(scena)
+                    elem = data.PumpingStationStrategy()
+                    print(f'{elem.water_type = }')
+                    elem.action(scena)
             except Exception:
                 pass            
 
