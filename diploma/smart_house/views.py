@@ -30,7 +30,7 @@ def to_get_data(request):
     
 def connect_decvice(request):
     """Отправляетна zigbee2mqtt сообщение c разрешеним на подключения новых устройств"""
-    mqtt_all_publish('zigbee2mqtt/bridge/request/permit_join', {"value": "true"})
+    mqtt_all_publish('zigbee2mqtt/bridge/request/permit_join', {"value": "true", "time": 20})
     return redirect('devices')
     
 

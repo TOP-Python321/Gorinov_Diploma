@@ -13,6 +13,7 @@ def mqtt_test():
     """Получает параметры датчиков и записывает их в базу данных."""
 
     def on_message(client, userdata, message):
+        print(f'DEBUG {message.payload.decode("utf-8")}')
         try:
             device = Device.objects.get(address=''.join(message.topic.split('/')[-1]))
         except ObjectDoesNotExist:
@@ -20,7 +21,10 @@ def mqtt_test():
             device = Device(name='новое устройство', address=''.join(message.topic.split('/')[-1]))
             devices_type = DeviceType.objects.get(name="Новое устройство")
             device.devices_type_id = devices_type.id
-            device.save()
+            device.json_data = message.payload.decode("utf-8")
+            # сохранение только устройства с json данными
+            if message.payload:
+                device.save()
         else:
             device.json_data = message.payload.decode("utf-8")
             device.save()
