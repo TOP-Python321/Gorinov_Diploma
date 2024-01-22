@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- {% load static %} -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='my_style/style.css'>	
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+        <h1>Smart House</h1>   
+      </div>         
+    </div>
+    <div class="nav">
+      <div>
+        <li>
+          <a href="{% url 'devices' %}">Устройства</a>
+        </li>
+        <li>
+          <a href="{% url 'get_data' %}">Запуск цикла опроса датчиков</a>
+        </li>
+        <li>
+          <a href="{% url 'scenarios' %}">Сценарии</a>
+        </li>
+        <li>
+          <a href="{% url 'connect_decvice' %}">Добавление устройств</a>
+        </li>
+      </div>     
+    </div>
+    <div class="content">
+      content
+    </div>
+    <div class="footer">
+      footer
+    </div>
+  </div>
+</body>
+</html>
