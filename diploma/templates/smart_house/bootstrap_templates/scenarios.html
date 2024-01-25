@@ -1,0 +1,22 @@
+{% extends "smart_house/base.html" %}
+{% block content %}
+  <div class="row text-center text-dark 1h-2">
+      <h4>Список сценариев в БД</h4>
+  </div>
+  <div class="row text-start ">
+      <a href="{% url 'water_pump_scenarios_new' %}">Добавить сценарий</a>
+      <hr>
+  </div>
+  
+    {% if scenarios %}     
+        {% for scenario in scenarios %}
+          <div class="text-start">
+            <a href="{{ scenario.id }}">{{ scenario.name }}</a>            
+          </div>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>В базе нет сценариев</p>
+    {% endif %}
+  {% endblock content %}

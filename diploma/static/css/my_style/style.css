@@ -101,16 +101,65 @@ h1{
 }
 .device-row div{
     width: 50%;
-    align-items: center;
+    /* align-items: center; */
+	text-align: start;
+	border-bottom: 1px solid #FDC194;
 }
 .name-row{
     font-weight: bold;
+	padding-left: 10px;
 }
 .device-edit{
     display: flex;
     justify-content: space-around;
     margin-top: 20px;
 }
+.devices-row{
+	padding: 0 10px;
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	align-items: center;
+	border-bottom: 1px solid #FDC194;
+}
+.devices-left{
+	display: flex;
+	padding-left: 10px;
+	text-align: left;
+}
+.devices-container{
+	padding: 0 15px;
+	color: #295AC4;
+}
+.scena-container{
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	margin: 0 auto;
+	color: #295AC4;
+}
+.scenario-container{
+	padding: 0 15px;
+	color: #295AC4;
+	width: 80%;
+}
+.scenario-row{
+	padding: 0 10px;
+	display:grid;
+	grid-template-columns: 1fr 1fr;
+	grid-column-gap: 10px;
+	align-items: center;
+	border-bottom: 1px solid #FDC194;	
+}
+.scenario-row p{
+	text-align: left;
+}
+.scenario-edit{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 20px;
+}
+
 
 /* ----------------------------------------------------------------------------------------------------------- */
 .forms{

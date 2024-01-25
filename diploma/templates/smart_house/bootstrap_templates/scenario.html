@@ -1,0 +1,37 @@
+{% extends "smart_house/base.html" %}
+{% block content %}
+  {% if scenario.scenario_type.name == 'Насосная станция' %}
+    <div class="row text-center">
+      <div class="col-4 text-start">
+        <p>Наименование</p>
+      </div>
+      <div class="col-6 text-start">
+        <p>{{ scenario.name }}</p>
+      </div>
+    </div>
+    {#{scenario.devices_id.get.name="розетка"}#}
+    {% for device in scenario.devices_id.all %}
+    <div class="row text-center">
+      <div class="col-4 text-start">
+    {% if device.devices_type.name == "socket_220" %}
+      <p>Розетка</p>
+    {% else %}
+      <p>Датчик протечки</p>
+    {% endif %}
+      </div>
+      <div class="col-6 text-start">
+        <p>
+            {{device.name}}
+        </p>
+      </div>
+    </div>
+    {% endfor %}
+    <div class="r</div>
+    <div class="row text-center">
+      <div class="col-4">
+        <a href="{% url 'water_pump_scenarios_edit' scenario.pk %}">Редактировать</a>
+        <a href="{% url 'water_pump_scenarios_delete' scenario.pk %}">Удалить</a>
+      </div>      
+    </div>
+  {% endif %}
+  {% endblock content %}

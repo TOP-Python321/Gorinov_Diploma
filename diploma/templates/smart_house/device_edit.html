@@ -1,6 +1,6 @@
 {% extends "smart_house/base.html" %}
 {% block content %}
-<div class="forms bg-primary"">		
+<div class="forms">		
 		<form class="form_water_pump" action="" method="POST">
 			{% csrf_token %}			
 				{% for field in form %}
@@ -12,4 +12,5 @@
 				{% endfor %}
 			
 			<input class="input_sub" type="submit" value="Отправить">
+</div>
 {% endblock content %}
