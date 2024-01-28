@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+<html lang="ru" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Models &#8212; документация smart_house </title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=12dfc556" />
+    <script src="_static/documentation_options.js?v=372fde1a"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/translations.js?v=29b1f277"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="Views" href="views.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="models">
+<h1>Models<a class="headerlink" href="#models" title="Link to this heading">¶</a></h1>
+<dl class="py class" id="module-smart_house.models">
+<dt class="sig sig-object py" id="smart_house.models.Device">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smart_house.models.</span></span><span class="sig-name descname"><span class="pre">Device</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smart_house.models.Device" title="Link to this definition">¶</a></dt>
+<dd><p>Описывает таблицу устройств</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><em>CharField</em></a>) – Название датчика. Введите название датчика</p></li>
+<li><p><strong>address</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><em>CharField</em></a>) – Ieee адрес датчика. Введите ieee адрес датчика</p></li>
+<li><p><strong>json_data</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.JSONField" title="(в Django v5.0)"><em>JSONField</em></a>) – Json data</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>groups_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#smart_house.models.Group" title="smart_house.models.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a>) – Входит в группу. Укажите в какую группу входит устройство (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code>)</p></li>
+<li><p><strong>devices_type</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#smart_house.models.DeviceType" title="smart_house.models.DeviceType"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceType</span></code></a>) – Тип устройства. Укажите тип устройства (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scenario</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="#smart_house.models.Scenario" title="smart_house.models.Scenario"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scenario</span></code></a>) – All scenarios of this device (related name of <a class="reference internal" href="#smart_house.models.Scenario.devices" title="smart_house.models.Scenario.devices"><code class="xref py py-attr docutils literal notranslate"><span class="pre">devices</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.Device.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#smart_house.models.Device.DoesNotExist" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.Device.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#smart_house.models.Device.MultipleObjectsReturned" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.address">
+<span class="sig-name descname"><span class="pre">address</span></span><a class="headerlink" href="#smart_house.models.Device.address" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Ieee адрес датчика. Введите ieee адрес датчика</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.devices_type">
+<span class="sig-name descname"><span class="pre">devices_type</span></span><a class="headerlink" href="#smart_house.models.Device.devices_type" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#smart_house.models.DeviceType" title="smart_house.models.DeviceType"><code class="xref py py-class docutils literal notranslate"><span class="pre">DeviceType</span></code></a></p>
+<p>Тип устройства. Укажите тип устройства (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.devices_type_id">
+<span class="sig-name descname"><span class="pre">devices_type_id</span></span><a class="headerlink" href="#smart_house.models.Device.devices_type_id" title="Link to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#smart_house.models.Device.devices_type" title="smart_house.models.Device.devices_type"><code class="xref py py-class docutils literal notranslate"><span class="pre">devices_type</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smart_house.models.Device.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(в Python v3.12)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#smart_house.models.Device.get_absolute_url" title="Link to this definition">¶</a></dt>
+<dd><p>Ссылка на страницу экземпляра</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.groups_id">
+<span class="sig-name descname"><span class="pre">groups_id</span></span><a class="headerlink" href="#smart_house.models.Device.groups_id" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#smart_house.models.Group" title="smart_house.models.Group"><code class="xref py py-class docutils literal notranslate"><span class="pre">Group</span></code></a></p>
+<p>Входит в группу. Укажите в какую группу входит устройство (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">device</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.groups_id_id">
+<span class="sig-name descname"><span class="pre">groups_id_id</span></span><a class="headerlink" href="#smart_house.models.Device.groups_id_id" title="Link to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#smart_house.models.Device.groups_id" title="smart_house.models.Device.groups_id"><code class="xref py py-class docutils literal notranslate"><span class="pre">groups_id</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#smart_house.models.Device.id" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.json_data">
+<span class="sig-name descname"><span class="pre">json_data</span></span><a class="headerlink" href="#smart_house.models.Device.json_data" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.JSONField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">JSONField</span></code></a></p>
+<p>Json data</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#smart_house.models.Device.name" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Название датчика. Введите название датчика</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#smart_house.models.Device.objects" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Device.scenario_set">
+<span class="sig-name descname"><span class="pre">scenario_set</span></span><a class="headerlink" href="#smart_house.models.Device.scenario_set" title="Link to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="#smart_house.models.Scenario" title="smart_house.models.Scenario"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scenario</span></code></a></p>
+<p>All scenarios of this device (related name of <a class="reference internal" href="#smart_house.models.Scenario.devices" title="smart_house.models.Scenario.devices"><code class="xref py py-attr docutils literal notranslate"><span class="pre">devices</span></code></a>)</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smart_house.models.DeviceType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smart_house.models.</span></span><span class="sig-name descname"><span class="pre">DeviceType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smart_house.models.DeviceType" title="Link to this definition">¶</a></dt>
+<dd><p>Описывает таблицу типов устройств</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><em>CharField</em></a>) – Название типа устройства. Введите тип устройства</p></li>
+<li><p><strong>image</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ImageField" title="(в Django v5.0)"><em>ImageField</em></a>) – Изображение устройства. Введите изображение устройства</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#smart_house.models.Device" title="smart_house.models.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a>) – All devices of this device type (related name of <a class="reference internal" href="#smart_house.models.Device.devices_type" title="smart_house.models.Device.devices_type"><code class="xref py py-attr docutils literal notranslate"><span class="pre">devices_type</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.DeviceType.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#smart_house.models.DeviceType.DoesNotExist" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.DeviceType.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#smart_house.models.DeviceType.MultipleObjectsReturned" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.DeviceType.device_set">
+<span class="sig-name descname"><span class="pre">device_set</span></span><a class="headerlink" href="#smart_house.models.DeviceType.device_set" title="Link to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#smart_house.models.Device" title="smart_house.models.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a></p>
+<p>All devices of this device type (related name of <a class="reference internal" href="#smart_house.models.Device.devices_type" title="smart_house.models.Device.devices_type"><code class="xref py py-attr docutils literal notranslate"><span class="pre">devices_type</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.DeviceType.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#smart_house.models.DeviceType.id" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.DeviceType.image">
+<span class="sig-name descname"><span class="pre">image</span></span><a class="headerlink" href="#smart_house.models.DeviceType.image" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ImageField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageField</span></code></a></p>
+<p>Изображение устройства. Введите изображение устройства</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.DeviceType.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#smart_house.models.DeviceType.name" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Название типа устройства. Введите тип устройства</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.DeviceType.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#smart_house.models.DeviceType.objects" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smart_house.models.Group">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smart_house.models.</span></span><span class="sig-name descname"><span class="pre">Group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smart_house.models.Group" title="Link to this definition">¶</a></dt>
+<dd><p>Описывает таблицу в которую могут входить устройства</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><em>CharField</em></a>) – Название группы. Введите название группы</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>device</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#smart_house.models.Device" title="smart_house.models.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a>) – All devices of this group (related name of <a class="reference internal" href="#smart_house.models.Device.groups_id" title="smart_house.models.Device.groups_id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">groups_id</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.Group.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#smart_house.models.Group.DoesNotExist" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.Group.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#smart_house.models.Group.MultipleObjectsReturned" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Group.device_set">
+<span class="sig-name descname"><span class="pre">device_set</span></span><a class="headerlink" href="#smart_house.models.Group.device_set" title="Link to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#smart_house.models.Device" title="smart_house.models.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a></p>
+<p>All devices of this group (related name of <a class="reference internal" href="#smart_house.models.Device.groups_id" title="smart_house.models.Device.groups_id"><code class="xref py py-attr docutils literal notranslate"><span class="pre">groups_id</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Group.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#smart_house.models.Group.id" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Group.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#smart_house.models.Group.name" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Название группы. Введите название группы</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Group.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#smart_house.models.Group.objects" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smart_house.models.Scenario">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smart_house.models.</span></span><span class="sig-name descname"><span class="pre">Scenario</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smart_house.models.Scenario" title="Link to this definition">¶</a></dt>
+<dd><p>Описывает таблицу сценариев</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><em>CharField</em></a>) – Название сценария. Введите название сценария</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scenario_type</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#smart_house.models.ScenarioType" title="smart_house.models.ScenarioType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScenarioType</span></code></a>) – Вид сценария. Укажите вид сценаярия (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">scenario</span></code>)</p></li>
+<li><p><strong>devices</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference internal" href="#smart_house.models.Device" title="smart_house.models.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a>) – Devices (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">scenario</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#smart_house.models.Scenario.DoesNotExist" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#smart_house.models.Scenario.MultipleObjectsReturned" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.devices">
+<span class="sig-name descname"><span class="pre">devices</span></span><a class="headerlink" href="#smart_house.models.Scenario.devices" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ManyToManyField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference internal" href="#smart_house.models.Device" title="smart_house.models.Device"><code class="xref py py-class docutils literal notranslate"><span class="pre">Device</span></code></a></p>
+<p>Devices (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">scenario</span></code>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.get_absolute_url">
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(в Python v3.12)"><span class="pre">str</span></a></span></span><a class="headerlink" href="#smart_house.models.Scenario.get_absolute_url" title="Link to this definition">¶</a></dt>
+<dd><p>Ссылка на страницу экземпляра</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#smart_house.models.Scenario.id" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#smart_house.models.Scenario.name" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Название сценария. Введите название сценария</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#smart_house.models.Scenario.objects" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.scenario_type">
+<span class="sig-name descname"><span class="pre">scenario_type</span></span><a class="headerlink" href="#smart_house.models.Scenario.scenario_type" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="#smart_house.models.ScenarioType" title="smart_house.models.ScenarioType"><code class="xref py py-class docutils literal notranslate"><span class="pre">ScenarioType</span></code></a></p>
+<p>Вид сценария. Укажите вид сценаярия (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">scenario</span></code>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.Scenario.scenario_type_id">
+<span class="sig-name descname"><span class="pre">scenario_type_id</span></span><a class="headerlink" href="#smart_house.models.Scenario.scenario_type_id" title="Link to this definition">¶</a></dt>
+<dd><p>Internal field, use <a class="reference internal" href="#smart_house.models.Scenario.scenario_type" title="smart_house.models.Scenario.scenario_type"><code class="xref py py-class docutils literal notranslate"><span class="pre">scenario_type</span></code></a> instead.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="smart_house.models.ScenarioType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">smart_house.models.</span></span><span class="sig-name descname"><span class="pre">ScenarioType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#smart_house.models.ScenarioType" title="Link to this definition">¶</a></dt>
+<dd><p>Описывает таблицу вида сценария</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><em>CharField</em></a>) – Название вида сценария. Введите вид сценария</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметры<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scenario</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#smart_house.models.Scenario" title="smart_house.models.Scenario"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scenario</span></code></a>) – All scenarios of this scenario type (related name of <a class="reference internal" href="#smart_house.models.Scenario.scenario_type" title="smart_house.models.Scenario.scenario_type"><code class="xref py py-attr docutils literal notranslate"><span class="pre">scenario_type</span></code></a>)</p>
+</dd>
+</dl>
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.ScenarioType.DoesNotExist">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="headerlink" href="#smart_house.models.ScenarioType.DoesNotExist" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="smart_house.models.ScenarioType.MultipleObjectsReturned">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="headerlink" href="#smart_house.models.ScenarioType.MultipleObjectsReturned" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.ScenarioType.id">
+<span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#smart_house.models.ScenarioType.id" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.BigAutoField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
+<p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.ScenarioType.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#smart_house.models.ScenarioType.name" title="Link to this definition">¶</a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.CharField" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Название вида сценария. Введите вид сценария</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.ScenarioType.objects">
+<span class="sig-name descname"><span class="pre">objects</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.db.models.Manager</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#smart_house.models.ScenarioType.objects" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="smart_house.models.ScenarioType.scenario_set">
+<span class="sig-name descname"><span class="pre">scenario_set</span></span><a class="headerlink" href="#smart_house.models.ScenarioType.scenario_set" title="Link to this definition">¶</a></dt>
+<dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/stable/ref/models/fields/#django.db.models.ForeignKey" title="(в Django v5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="#smart_house.models.Scenario" title="smart_house.models.Scenario"><code class="xref py py-class docutils literal notranslate"><span class="pre">Scenario</span></code></a></p>
+<p>All scenarios of this scenario type (related name of <a class="reference internal" href="#smart_house.models.Scenario.scenario_type" title="smart_house.models.Scenario.scenario_type"><code class="xref py py-attr docutils literal notranslate"><span class="pre">scenario_type</span></code></a>)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">smart_house</a></h1>
+
+
+
+
+
+
+
+
+<h3>Навигация</h3>
+<p class="caption" role="heading"><span class="caption-text">Пример документации views</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#smart_house.models.Device"><code class="docutils literal notranslate"><span class="pre">Device</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smart_house.models.DeviceType"><code class="docutils literal notranslate"><span class="pre">DeviceType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smart_house.models.Group"><code class="docutils literal notranslate"><span class="pre">Group</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smart_house.models.Scenario"><code class="docutils literal notranslate"><span class="pre">Scenario</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#smart_house.models.ScenarioType"><code class="docutils literal notranslate"><span class="pre">ScenarioType</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="views.html" title="предыдущая глава">Views</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Быстрый поиск</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Искать" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2024, Andrey.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 7.2.6</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 0.7.16</a>
+      
+      |
+      <a href="_sources/models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

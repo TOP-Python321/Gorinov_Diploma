@@ -1,58 +1,56 @@
 {% extends "smart_house/base.html" %}
 {% block content %}
-  <div class="row text-center text-dark 1h-2">
-    <div class="row text-center">
-      <div class="col-12 text-center">
-        <img src="{{ device.devices_type.image.url }}" alt="connect" style="max-height:150px">
-      </div>
-    </div>
+  <div class="device-container">    
+    <div class="dev-img">
+      <img src="{{ device.devices_type.image.url }}" alt="connect" style="max-height:150px">
+    </div>    
     <!-- -------------------------------------------------------------------------------------------------- -->
     {% if device_type.name == 'socket_220' %}
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Наименование</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p>{{ device.name }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">      
         <p>Тип датчика</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.devices_type.name }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">      
         <p>Адрес IEEE</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.address }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Напряжение</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.voltage }} V</p>          
       </div>
     </div>
-       <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">      
         <p>Мощность</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.power }} W</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">      
         <p>Состояние</p>
       </div>
-      <div class="col-6 text-start">       
+      <div class="dev-but">       
         <p>
         {% if device.json_data.state == "OFF" %}
           Выкл.
@@ -60,130 +58,138 @@
         {% if device.json_data.state == "ON" %}
           Вкл.
         {% endif %}
-        </p>
+        </p>        
         <form action= '{% url 'socket_220' %}' method="POST">
           {% csrf_token %}
-          <input class="input_but" type="submit" value={% if device.json_data.state == "OFF" %} "Вкл." {% endif %} "Выкл."/>
-          <input type="hidden" name="id" value="{{device.id}}" />
-          <input type="hidden" name="state" value="{{device.json_data.state}}" />
-        
+          <input class="input_but" type="submit" value={% if device.json_data.state == "OFF" %} "Вкл." {% endif %} "Выкл.">
+          <input type="hidden" name="id" value="{{device.id}}">
+          <input type="hidden" name="state" value="{{device.json_data.state}}">
+        </form>        
       </div>
+    </div>
+    <div class="device-edit">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
     </div>
     {% endif %}
     <!-- ------------------------------------------------------------------------------------------------- -->
     {% if device_type.name == 'Датчик температуры воздуха' %}
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Наименование</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p>{{ device.name }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Тип датчика</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.devices_type.name }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Адрес IEEE</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.address }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Напряжение</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.voltage }} mV</p>          
       </div>
     </div>    
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Температура</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.temperature }} &deg;C</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Влажность воздуха</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.humidity }} %</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Атмосферное давление</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.pressure }} hPa</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Состояние батареи в %</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.battery }} %</p>
       </div>
+    </div>
+    <div class="device-edit">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
     </div>
     {% endif %}
     <!-- ------------------------------------------------------------------------------------------------ -->
     {% if device_type.name == 'Датчик протечки воды' %}
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Наименование</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p>{{ device.name }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Тип датчика</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.devices_type.name }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Адрес IEEE</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.address }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Напряжение</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.voltage }} mV</p>          
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Температура устройства</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.device_temperature }} &deg;C</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Протечка воды</p>
       </div>
-      <div class="col-6 text-start">      
+      <div>      
         {% if device.json_data.water_leak == False %}
           <p>Не бнаружена</p>
         {% endif %}
@@ -192,48 +198,52 @@
         {% endif %}        
       </div>
     </div>
+    <div class="device-edit">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
+    </div>
     {% endif %}
     <!-- ------------------------------------------------------------------------------------------ -->
      {% if device_type.name == 'Датчик дыма' %}
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Наименование</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p>{{ device.name }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Тип датчика</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.devices_type.name }}</p>
       </div>
     </div>
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Адрес IEEE</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.address }}</p>
       </div>
     </div>
     {% if device.json_data.voltage %}
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Напряжение</p>
       </div>
-      <div class="col-6 text-start">
+      <div>
         <p> {{ device.json_data.voltage }} mV</p>          
       </div>
     </div>
     {% endif %}
-    <div class="row text-center">
-      <div class="col-4 text-start">
+    <div class="device-row">
+      <div class="name-row">
         <p>Присутствие дыма</p>
       </div>
-      <div class="col-6 text-start">      
+      <div>      
         {% if device.json_data.smoke == False %}
           <p>Не бнаружено</p>
         {% endif %}
@@ -241,6 +251,17 @@
           <p>Обнаружено</p>
         {% endif %}        
       </div>
+    </div>
+    <div class="device-edit">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
+    </div>
+    {% endif %}
+    <!-- -------------------------------------------------------------------------------------------------------------- -->
+    {% if device_type.name == 'Новое устройство' %}    
+    <div class="device-edit">
+      <a href="{% url 'device_edit' device.pk %}">Редактировать</a>
+      <a href="{% url 'device_del' device.pk %}">Удалить</a>
     </div>
     {% endif %}
   </div>

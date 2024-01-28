@@ -1,0 +1,8 @@
+комады установки модулей
+______________________________
+pip install django
+pip install celery
+pip install django_cleanup
+pip install Paho-mqtt
+pip install Pillow
+ip install redis

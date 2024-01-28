@@ -1,17 +1,17 @@
 from django import forms
-from django.db import models
-from smart_house.models import Scenario, Device, ScenarioType
+from .models import Scenario, Device, ScenarioType
+
 
 class WaterPumpForm(forms.ModelForm):
     """
         Описывает форму для сценария "Насосная станция"
     """
-    water_leak_sensor = forms.ModelChoiceField(
-        queryset=Device.objects.filter(devices_type__name="Датчик протечки воды"), 
-        empty_label=None,
+
+    water_leak_sensor = forms.ModelMultipleChoiceField(
+        queryset=Device.objects.filter(devices_type__name="Датчик протечки воды"),        
         label="Датчик протечки",
         help_text="Выберите датчик протечки",
-    )
+    )    
     socket_220 = forms.ModelChoiceField(
         queryset=Device.objects.filter(devices_type__name="socket_220"), 
         empty_label=None,
@@ -25,10 +25,15 @@ class WaterPumpForm(forms.ModelForm):
         help_text="Выберите тип сценария",
         empty_label=None
     )
+
     class Meta:
         model = Scenario
-        fields = ["name", "water_leak_sensor", "socket_220", "scenario_type"]
-        
-
+        fields = ["name"]
 
         
+class DeviceForm(forms.ModelForm):
+    """Описывает форму устройства"""
+    
+    class Meta:
+        model = Device
+        fields = ["name", "groups_id", "devices_type"]

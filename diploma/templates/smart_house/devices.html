@@ -1,30 +1,31 @@
 {% extends "smart_house/base.html" %}
-{% block content %}
-  <div class="row text-center text-dark 1h-2">
-      <h4>Список датчиков в БД</h4>
+{% block content %}  
+  {% if devices %}
+  <div class="devices-container">
+    <div class="devices-row">
+      <div>
+        <p class="name-row">Изображение</p>
+      </div>
+      <div>
+        <p class="name-row">Название</p>
+      </div>
+      <div>
+        <p class="name-row">Адрес IEEE</p>
+      </div>
+      <div>
+        <p class="name-row">Качество сигнала</p>
+      </div>
     </div>
-    {% if devices %}
-    <table class="table table-striped table-bordered text-start">
-      <thead>
-        <tr>
-          <th>Изображение</th>
-          <th>Название</th>
-          <th>Адрес IEEE	</th>
-          <th>Качество сигнала	</th>          
-        </tr>
-      </thead>
-      <tbody>
-        {% for device in devices %}
-          <tr>
-            <td><img src="{{ device.devices_type.image.url }}" alt="connect" style="max-height:100px"></td>
-            <td><a href="{{ device.id }}">{{ device.name }}</a></td>
-            <td>{{ device.address }}</td>            
-            <td>{{device.json_data.linkquality}}</td>               
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-      <p>В базе нет датчиков</p>
-    {% endif %}
-  {% endblock content %}
+    {% for device in devices %}
+      <div class="devices-row">
+        <div>
+          <img src="{{ device.devices_type.image.url }}" alt="connect" style="max-height:100px">
+        </div>
+        <div class="devices-left"><a href="{{ device.id }}">{{ device.name }}</a></div>
+        <div class="devices-left"><p>{{ device.address }}</p></div>
+        <div><p>{{device.json_data.linkquality}}</p></div>
+      </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+{% endblock content %}
